@@ -33,9 +33,9 @@ public class TaskGenerator{
     }
 
     public Task getTask(){
-        if(last < tasks.size()){
-            return tasks.get(last++);
+        if(last >= tasks.size()){
+            last = 0;
         }
-        return tasks.get(last = 0);
+        return tasks.get(last++);
     }
 }
