@@ -24,18 +24,17 @@ public class TaskGenerator{
 
         int i = 0;
         while (property.getProperty(String.format("condition%d", i)) != null) {
-            Task task = new Task();
-            task.condition = property.getProperty(String.format("condition%d", i));
-            task.ans = property.getProperty(String.format("answer%d", i));
+            Task task = new Task(
+                    property.getProperty(String.format("condition%d", i)),
+                    property.getProperty(String.format("answer%d", i))
+            );
             tasks.add(task);
             i++;
         }
     }
 
-    public Task getTask(){
-        if(last >= tasks.size()){
-            last = 0;
-        }
+    public Task getTask() {
+        last = last % tasks.size();
         return tasks.get(last++);
     }
 }

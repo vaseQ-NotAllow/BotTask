@@ -7,9 +7,9 @@ public class Bot {
         Scanner scan = new Scanner(System.in);
         while (true){
             Task task = generator.getTask();
-            System.out.println(task.condition);
+            System.out.println(task.getCondition());
             String answer = scan.nextLine();
-            System.out.println(BotCore.parseUserInput(answer, task.ans));
+            System.out.println(BotCore.parseUserInput(answer, task.getAns()));
         }
     }
 }
