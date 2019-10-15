@@ -8,8 +8,8 @@ public class TaskGenerator implements IGenerator{
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private int last = 0;
 
-    public TaskGenerator(){
-        generateFromProperties("src/main/resources/Tasks.properties");
+    public TaskGenerator(String source){
+        generateFromProperties(source);
     }
 
     private void generateFromProperties(String propDir){

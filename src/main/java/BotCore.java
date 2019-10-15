@@ -1,6 +1,6 @@
 public class BotCore {
     public static String parseUserInput(String input, String answer){
-        if(input.equals("\\help")){
+        if(input.equals("/help")){
             return getInfo();
         }
         if(Comparator.compare(input, answer)){
