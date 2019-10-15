@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class TaskGenerator{
+public class TaskGenerator implements IGenerator{
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private int last = 0;
 

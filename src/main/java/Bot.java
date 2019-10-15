@@ -1,19 +1,21 @@
 import java.util.Scanner;
 
 public class Bot {
+    private IMessager messager;
+    private IGenerator generator;
 
-    public Bot(){
-
+    public Bot(IMessager messager, IGenerator generator){
+        this.messager = messager;
+        this.generator = generator;
     }
+
     public void run(String[] args){
-        System.out.println(BotCore.getInfo());
-        TaskGenerator generator = new TaskGenerator();
-        Scanner scan = new Scanner(System.in);
+        messager.write(BotCore.getInfo());
         while (true){
             Task task = generator.getTask();
-            System.out.println(task.getCondition());
-            String answer = scan.nextLine();
-            System.out.println(BotCore.parseUserInput(answer, task.getAns()));
+            messager.write(task.getCondition());
+            String answer = messager.read();
+            messager.write(BotCore.parseUserInput(answer, task.getAns()));
         }
     }
 }
