@@ -1,6 +1,10 @@
 import java.util.Scanner;
 
 public class Bot {
+
+    public Bot(){
+
+    }
     public void run(String[] args){
         System.out.println(BotCore.getInfo());
         TaskGenerator generator = new TaskGenerator();
