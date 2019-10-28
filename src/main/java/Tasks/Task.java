@@ -1,4 +1,6 @@
-public class Task {
+package Tasks;
+
+public class Task implements ITask{
     private String condition;
     private String ans;
 
@@ -11,7 +13,11 @@ public class Task {
         return condition;
     }
 
-    public String getAns() {
+    public String getAnswer() {
         return ans;
+    }
+
+    public Enum<ComparatorAnswer> compare(String userAnswer) {
+        return null;
     }
 }

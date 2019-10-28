@@ -1,3 +1,7 @@
+package Messager;
+
+import Messager.IMessager;
+
 import java.util.Scanner;
 
 public class ConsoleMessager implements IMessager {

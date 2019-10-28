@@ -1,10 +1,14 @@
+package Generator;
+
+import Generator.IGenerator;
+import Tasks.Task;
+
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class TaskGenerator implements IGenerator{
+public class TaskGenerator implements IGenerator {
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private int last = 0;
 

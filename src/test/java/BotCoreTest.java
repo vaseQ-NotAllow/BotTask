@@ -1,8 +1,6 @@
+import Bot.BotCore;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class BotCoreTest {
     private static String info = "Hi! I am the bot -12 lvl 0.o....\n" +
