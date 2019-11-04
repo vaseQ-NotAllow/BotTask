@@ -8,6 +8,6 @@ public class Exit implements ICommands {
     }
 
     public String execute(BotCore bot, String[] arg) {
-        return bot.removeCondition(arg[1]);
+        return bot.removeCondition();
     }
 }

@@ -17,7 +17,9 @@ public class Task implements ITask{
         return ans;
     }
 
-    public Enum<ComparatorAnswer> compare(String userAnswer) {
-        return null;
+    public Enum<ComparatorAnswer> compare(String userAnswer){
+        if (userAnswer.compareToIgnoreCase(ans) == 0)
+            return ComparatorAnswer.Correct;
+        return ComparatorAnswer.Wrong;
     }
 }

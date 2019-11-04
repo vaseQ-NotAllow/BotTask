@@ -11,10 +11,10 @@ public class Bot {
     public Bot(IMessager messager, BotCore bot){
         this.messager = messager;
         this.bot = bot;
+        messager.write(bot.getInfo());
     }
 
-    public void run(String[] args){
-        messager.write(bot.getInfo());
+    public void run(){
         String answer = messager.read();
         messager.write(bot.parseUserInput(answer));
         }
