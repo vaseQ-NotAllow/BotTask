@@ -11,7 +11,7 @@ public class ConsoleMessager implements IMessager {
         return scanner.nextLine();
     }
 
-    public void write(String output) {
-        System.out.println(output);
+    public void write(String output, String id) {
+        System.out.println(String.format("%s %s",id, output));
     }
 }

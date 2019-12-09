@@ -1,82 +1,64 @@
 package Bot;
 
-import Commands.ICommands;
 import Generator.IGenerator;
 import Tasks.ITask;
 
+import java.io.Console;
 import java.util.HashMap;
+import java.util.function.Function;
 
 public class BotCore {
-    private String currentUser;
     private HashMap<String, ITask> users;
     private String info;
-    private HashMap<String, ICommands> commands;
     private IGenerator taskGenerator;
+    private String id;
 
-    public BotCore(ICommands[] commands, IGenerator generator, String info){
+    public BotCore(IGenerator generator, String info){
         this.info = info;
         taskGenerator = generator;
-        this.commands = new HashMap<String, ICommands>();
         users = new HashMap<String, ITask>(){};
-        for (ICommands command:
-             commands) {
-            this.commands.put(command.getName(), command);
-        }
     }
 
-    public String parseUserInput(String input){
-        if(input.charAt(0) == '/'){
-            String[] command = input.split(" ");
-            if(commands.containsKey(command[0]))
-                return commands.get(command[0]).execute(this, command);
-            else
-                return "No such command";
-        }
-
-        if(users.get(currentUser) == null)
-            return String.format("Wrong input, you gaven`t task, and command %s doesn`t exist", input);
-
-        String outPut = users.get(currentUser).compare(input).toString();
-        users.put(currentUser, null);
-        return outPut;
+    public String parseUserInput(String input, String id){
+        if (id != null)
+            return parse(input, id);
+        if(input.charAt(0) != '@')
+            return "Message should start with @username";
+        int endOfId = input.indexOf(' ');
+        if (endOfId == -1)
+            return "Message must have next form \"@username input(Command)\"";
+        return parse(input.substring(endOfId + 1), input.substring(0,endOfId));
+//        String outPut = users.get(currentUser).compare(input).toString();
+//        users.put(currentUser, null);
+//        return outPut;
     }
 
-    public String changeCondition(String user){
-        if(users.containsKey(user)){
-            currentUser = user;
-            return String.format("current user is %s", currentUser);
+    private String parse(String input, String id){
+        this.id = id;
+        if(input.equals("/task")){
+            users.put(id, taskGenerator.getTask());
+            return users.get(id).getCondition();
         }
 
-        return "No such user";
-    }
-
-    public String addCondition(String user){
-        if(!users.containsKey(user)){
-            users.put(user, null);
-            currentUser = user;
-            return String.format("User %s, have been added", user);
+        if(input.equals("/help"))
+            return getInfo();
+        if(users.containsKey(id)){
+            if(users.get(id) == null){
+                return "You need to get task first";
+            }
+            String answer = users.get(id).compare(input).toString();
+            users.put(id, null);
+            return answer;
         }
-        return String.format("User %s, already existed", user);
-    }
 
-    public String removeCondition(){
-        users.remove(currentUser);
-        String outPut = String.format("User %s, have been removed", currentUser);
-        currentUser = null;
-        return outPut;
-    }
-
-    public String getCondition(){
-        if(currentUser == null)
-            return "You need to login, before getting task";
-
-        if(users.get(currentUser) == null)
-            users.put(currentUser, taskGenerator.getTask());
-
-        return users.get(currentUser).getCondition();
+        return "/task to start work";
     }
 
     public  String getInfo(){
         return  info;
+    }
+
+    public String getId(){
+        return id;
     }
 }
