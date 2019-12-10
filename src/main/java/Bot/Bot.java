@@ -1,21 +1,30 @@
 package Bot;
 
-import Generator.IGenerator;
-import Messager.IMessager;
-import Tasks.ITask;
+import Messager.*;
+import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class Bot {
-    private IMessager messager;
+import java.util.ArrayList;
+
+public class Bot implements IMassageProcess, IPublisher {
     private BotCore bot;
+    private ArrayList<IMassageProcess> processes = new ArrayList<>();
 
-    public Bot(IMessager messager, BotCore bot){
-        this.messager = messager;
+    public Bot(BotCore bot){
         this.bot = bot;
     }
 
-    public void run(){
-        String input = messager.read();
-        messager.write(bot.parseUserInput(input), bot.getId());
+    @Override
+    public void Process(Message m) {
+        Message output = bot.parse(m);
+        for (IMassageProcess process :
+                processes) {
+            process.Process(output);
         }
+    }
+
+    @Override
+    public void subscribe(IMassageProcess processor) {
+        processes.add(processor);
+    }
 }
 

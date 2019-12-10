@@ -1,3 +1,3 @@
 package Tasks;
 
-public enum ComparatorAnswer { Wrong, Correct, HalfRight, IncorrectInput}
+public enum ComparatorAnswer { Wrong, Correct, IncorrectInput}

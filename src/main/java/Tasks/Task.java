@@ -13,10 +13,6 @@ public class Task implements ITask{
         return condition;
     }
 
-    public String getAnswer() {
-        return ans;
-    }
-
     public Enum<ComparatorAnswer> compare(String userAnswer){
         if (userAnswer.compareToIgnoreCase(ans) == 0)
             return ComparatorAnswer.Correct;
