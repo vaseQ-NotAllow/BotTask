@@ -6,12 +6,16 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 import java.util.ArrayList;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.TimeUnit;
 
 public class TgBot extends TelegramLongPollingBot implements IPublisher, IMassageProcess{
     private ArrayList<IMassageProcess> processes = new ArrayList<>();
+    private String botUsername;
+    private String botToken;
+
+    public TgBot(String botUserName, String botToken){
+        this.botToken = botToken;
+        botUsername = botUserName;
+    }
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -25,18 +29,18 @@ public class TgBot extends TelegramLongPollingBot implements IPublisher, IMassag
 
     @Override
     public String getBotUsername() {
-        return "HelpTaskeBot";
+        return botUsername;
     }
 
     @Override
     public String getBotToken() {
-        return "991379286:AAG-L5l58W3692CtrmYrdMJ-kJY6ZZUTm44";
+        return botToken;
     }
 
+    @Override
     public void subscribe(IMassageProcess process){
         processes.add(process);
     }
-
 
     @Override
     public void Process(Message m) {

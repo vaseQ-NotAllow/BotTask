@@ -20,15 +20,6 @@ public class BotCore {
         users = new HashMap<String, ITask>(){};
     }
 
-//    public String parseUserInput(String input){
-//        if(input.charAt(0) != '@')
-//            return "Message should start with @username";
-//        int endOfId = input.indexOf(' ');
-//        if (endOfId == -1)
-//            return "Message must have next form \"@username input(Command)\"";
-//        return parse(input.substring(endOfId + 1), input.substring(1, endOfId));
-//    }
-
     public Message parse(Message m){
         String input = m.getText();
         if(input.equals("/task")){
@@ -53,5 +44,4 @@ public class BotCore {
     public  String getInfo(){
         return  info;
     }
-
 }

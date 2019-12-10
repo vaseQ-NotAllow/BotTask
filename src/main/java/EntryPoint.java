@@ -1,7 +1,6 @@
 import Bot.*;
 import Generator.IGenerator;
 import Generator.TaskGenerator;
-import Messager.IMessager;
 import Messager.TgBot;
 import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
@@ -11,7 +10,7 @@ public class EntryPoint {
     public static void main(String[] args){
         ApiContextInitializer.init();
         TelegramBotsApi telegramBotsApi = new TelegramBotsApi();
-        TgBot tgBot = new TgBot();
+        TgBot tgBot = new TgBot(System.getenv("botUsername"), System.getenv("botToken"));
         try {
             telegramBotsApi.registerBot(tgBot);
         } catch (TelegramApiRequestException e) {
