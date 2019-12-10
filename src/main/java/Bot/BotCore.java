@@ -19,18 +19,13 @@ public class BotCore {
         users = new HashMap<String, ITask>(){};
     }
 
-    public String parseUserInput(String input, String id){
-        if (id != null)
-            return parse(input, id);
+    public String parseUserInput(String input){
         if(input.charAt(0) != '@')
             return "Message should start with @username";
         int endOfId = input.indexOf(' ');
         if (endOfId == -1)
             return "Message must have next form \"@username input(Command)\"";
-        return parse(input.substring(endOfId + 1), input.substring(0,endOfId));
-//        String outPut = users.get(currentUser).compare(input).toString();
-//        users.put(currentUser, null);
-//        return outPut;
+        return parse(input.substring(endOfId + 1), input.substring(1, endOfId));
     }
 
     private String parse(String input, String id){
@@ -51,7 +46,7 @@ public class BotCore {
             return answer;
         }
 
-        return "/task to start work";
+        return getInfo();
     }
 
     public  String getInfo(){

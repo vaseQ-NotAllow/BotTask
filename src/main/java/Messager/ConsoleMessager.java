@@ -12,6 +12,6 @@ public class ConsoleMessager implements IMessager {
     }
 
     public void write(String output, String id) {
-        System.out.println(String.format("%s %s",id, output));
+        System.out.println(String.format("@%s: %s",id, output));
     }
 }
