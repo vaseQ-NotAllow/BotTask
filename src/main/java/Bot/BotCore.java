@@ -22,6 +22,7 @@ public class BotCore {
 
     public Message parse(Message m){
         String input = m.getText();
+        id = m.getId().getChatId();
         if(input.equals("/task")){
             users.put(id, taskGenerator.getTask());
             return new Message(users.get(id).getCondition(), m.getId());
