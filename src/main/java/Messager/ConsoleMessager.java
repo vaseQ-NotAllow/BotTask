@@ -13,7 +13,7 @@ public class ConsoleMessager implements IMassageProcess, IPublisher {
 
     public void Run() {
         String query = scan.next();
-        subscriber.Process(new Message(query, new ChatId("consolka")));
+        subscriber.Process(new Message(query, new ConsoleChatId("consolka")));
     }
 
     @Override

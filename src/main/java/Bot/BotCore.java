@@ -1,6 +1,7 @@
 package Bot;
 
 import Generator.IGenerator;
+import Messager.ChatId;
 import Messager.Message;
 import Tasks.ITask;
 
@@ -9,20 +10,19 @@ import java.util.HashMap;
 import java.util.function.Function;
 
 public class BotCore {
-    private HashMap<String, ITask> users;
+    private HashMap<ChatId, ITask> users;
     private String info;
     private IGenerator taskGenerator;
-    private String id;
 
     public BotCore(IGenerator generator, String info){
         this.info = info;
         taskGenerator = generator;
-        users = new HashMap<String, ITask>(){};
+        users = new HashMap<ChatId, ITask>(){};
     }
 
     public Message parse(Message m){
         String input = m.getText();
-        id = m.getId().getChatId();
+        ChatId id = m.getId();
         if(input.equals("/task")){
             users.put(id, taskGenerator.getTask());
             return new Message(users.get(id).getCondition(), m.getId());
@@ -42,7 +42,7 @@ public class BotCore {
         return new Message(getInfo(), m.getId());
     }
 
-    public  String getInfo(){
+    private String getInfo(){
         return  info;
     }
 }

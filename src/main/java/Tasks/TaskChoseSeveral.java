@@ -17,6 +17,11 @@ public class TaskChoseSeveral implements ITask {
     }
 
     @Override
+    public String getAnswer() {
+        return ans.toString();
+    }
+
+    @Override
     public Enum<ComparatorAnswer> compare(String userAnswer) {
         String[] ans = userAnswer.split(" ");
         HashSet<Integer> answer = new HashSet<>();

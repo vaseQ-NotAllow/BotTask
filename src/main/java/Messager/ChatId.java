@@ -1,13 +1,19 @@
 package Messager;
 
-public class ChatId {
-    private String id;
+public abstract class ChatId {
 
-    public ChatId(String id){
-        this.id = id;
+    @Override
+    public int hashCode(){
+        return 1;
     }
 
-    public String getChatId(){
-        return id;
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        return getClass() == obj.getClass();
     }
+    abstract ChatType getType();
 }

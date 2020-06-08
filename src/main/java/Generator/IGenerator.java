@@ -1,7 +1,7 @@
 package Generator;
 
-import Tasks.Task;
+import Tasks.ITask;
 
 public interface IGenerator {
-    public Task getTask();
+    ITask getTask();
 }

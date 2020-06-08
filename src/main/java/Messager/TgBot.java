@@ -23,7 +23,7 @@ public class TgBot extends TelegramLongPollingBot implements IPublisher, IMassag
             for (IMassageProcess process:
                  processes) {
                 process.Process(new Message(update.getMessage().getText(),
-                        new ChatId(update.getMessage().getChatId().toString())));
+                        new TgChatId(update.getMessage().getChatId())));
             }
     }
 
@@ -44,9 +44,12 @@ public class TgBot extends TelegramLongPollingBot implements IPublisher, IMassag
 
     @Override
     public void Process(Message m) {
+        ChatId id = m.getId();
+        if (id.getType().compareTo(ChatType.Telegram) != 0)
+            return;
         SendMessage sendMessage = new SendMessage();
         sendMessage.enableMarkdown(true);
-        sendMessage.setChatId(m.getId().getChatId());
+        sendMessage.setChatId(((TgChatId) id).getId());
         sendMessage.setText(m.getText());
         try {
             execute(sendMessage);

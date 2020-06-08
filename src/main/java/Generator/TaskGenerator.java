@@ -1,6 +1,6 @@
 package Generator;
 
-import Generator.IGenerator;
+import Tasks.ITask;
 import Tasks.Task;
 
 import java.io.FileInputStream;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class TaskGenerator implements IGenerator {
-    private ArrayList<Task> tasks = new ArrayList<Task>();
+    private ArrayList<Task> tasks = new ArrayList<>();
     private int last = 0;
 
     public TaskGenerator(String source){
@@ -37,7 +37,7 @@ public class TaskGenerator implements IGenerator {
         }
     }
 
-    public Task getTask() {
+    public ITask getTask() {
         last = last % tasks.size();
         return tasks.get(last++);
     }
