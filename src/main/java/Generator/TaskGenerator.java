@@ -11,9 +11,11 @@ import java.util.Properties;
 public class TaskGenerator implements IGenerator {
     private ArrayList<Task> tasks = new ArrayList<>();
     private int last = 0;
+    private String source;
+
 
     public TaskGenerator(String source){
-        generateFromProperties(source);
+        this.source = source;
     }
 
     private void generateFromProperties(String propDir){
@@ -38,6 +40,9 @@ public class TaskGenerator implements IGenerator {
     }
 
     public ITask getTask() {
+        if (tasks.isEmpty()){
+            generateFromProperties(source);
+        }
         last = last % tasks.size();
         return tasks.get(last++);
     }
