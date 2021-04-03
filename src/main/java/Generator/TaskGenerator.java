@@ -2,27 +2,21 @@ package Generator;
 
 import Tasks.ITask;
 import Tasks.Task;
+import Tasks.TasksTable;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class TaskGenerator implements IGenerator {
-    private ArrayList<Task> tasks = new ArrayList<>();
-    private int last = 0;
-    private String source;
-
-
-    public TaskGenerator(String source){
-        this.source = source;
-    }
-
-    private void generateFromProperties(String propDir){
+    public TasksTable getTasks(String tasksSourceName) {
+        List<ITask> tasks = new ArrayList<>();
         Properties property = new Properties();
         FileInputStream fis;
         try {
-            fis = new FileInputStream(propDir);
+            fis = new FileInputStream(tasksSourceName);
             property.load(fis);
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,13 +31,7 @@ public class TaskGenerator implements IGenerator {
             tasks.add(task);
             i++;
         }
-    }
 
-    public ITask getTask() {
-        if (tasks.isEmpty()){
-            generateFromProperties(source);
-        }
-        last = last % tasks.size();
-        return tasks.get(last++);
+        return new TasksTable(tasks, tasksSourceName);
     }
 }

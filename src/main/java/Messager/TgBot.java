@@ -7,8 +7,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 import java.util.ArrayList;
 
-public class TgBot extends TelegramLongPollingBot implements IPublisher, IMassageProcess{
-    private ArrayList<IMassageProcess> processes = new ArrayList<>();
+public class TgBot extends TelegramLongPollingBot implements IPublisher, IMessageProcess {
+    private ArrayList<IMessageProcess> processes = new ArrayList<>();
     private String botUsername;
     private String botToken;
 
@@ -20,7 +20,7 @@ public class TgBot extends TelegramLongPollingBot implements IPublisher, IMassag
     @Override
     public void onUpdateReceived(Update update) {
         if(update.hasMessage() && update.getMessage().hasText())
-            for (IMassageProcess process:
+            for (IMessageProcess process:
                  processes) {
                 process.Process(new Message(update.getMessage().getText(),
                         new TgChatId(update.getMessage().getChatId())));
@@ -38,7 +38,7 @@ public class TgBot extends TelegramLongPollingBot implements IPublisher, IMassag
     }
 
     @Override
-    public void subscribe(IMassageProcess process){
+    public void subscribe(IMessageProcess process){
         processes.add(process);
     }
 

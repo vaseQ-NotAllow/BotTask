@@ -1,48 +1,50 @@
 package Bot;
 
-import Generator.IGenerator;
 import Messager.ChatId;
 import Messager.Message;
-import Tasks.ITask;
+import Core.*;
 
-import java.io.Console;
 import java.util.HashMap;
-import java.util.function.Function;
 
 public class BotCore {
-    private HashMap<ChatId, ITask> users;
+    private ICore[] cores;
+    private HashMap<ChatId, ICore> currentCore;
     private String info;
-    private IGenerator taskGenerator;
 
-    public BotCore(IGenerator generator, String info){
-        this.info = info;
-        taskGenerator = generator;
-        users = new HashMap<ChatId, ITask>(){};
+    public BotCore(ICore... cores) {
+        this.cores = cores;
+        currentCore = new HashMap<ChatId, ICore>() {
+        };
+        StringBuilder stringBuilder = new StringBuilder("Description\n");
+        for (ICore core : cores) {
+            stringBuilder.append("=======\n");
+            stringBuilder.append(core.getCoreInfo()).append("\n");
+        }
+        info = stringBuilder.toString();
     }
 
-    public Message parse(Message m){
-        String input = m.getText();
-        ChatId id = m.getId();
-        if(input.equals("/task")){
-            users.put(id, taskGenerator.getTask());
-            return new Message(users.get(id).getCondition(), m.getId());
+    Message Parse(Message m) {
+        if (currentCore.containsKey(m.getId())) {
+            CoreResponse coreResponse = currentCore.get(m.getId()).execute(m);
+            return ParseCoreResponse(coreResponse);
         }
-
-        if(input.equals("/help"))
-            return new Message(getInfo(), m.getId());
-        if(users.containsKey(id)){
-            if(users.get(id) == null){
-                return new Message("You need to get task first", m.getId());
+        for (ICore core : cores) {
+            if (core.isInitialCommand(m.getText())) {
+                CoreResponse coreResponse = core.execute(m);
+                if (coreResponse.getStatus() == CoreResponseStatus.Create)
+                    currentCore.put(m.getId(), core);
+                return ParseCoreResponse(coreResponse);
             }
-            String answer = users.get(id).compare(input).toString();
-            users.put(id, null);
-            return new Message(answer, m.getId());
         }
-
-        return new Message(getInfo(), m.getId());
+        return new Message(info, m.getId());
     }
 
-    private String getInfo(){
-        return  info;
+    private Message ParseCoreResponse(CoreResponse coreResponse) {
+        Message coreMessage = coreResponse.getMessage();
+        if (coreResponse.getStatus() == CoreResponseStatus.Exit) {
+            currentCore.remove(coreMessage.getId());
+            return new Message(coreResponse.getMessage().getText() + "\n" + info, coreMessage.getId());
+        }
+        return coreMessage;
     }
 }

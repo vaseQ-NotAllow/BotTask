@@ -1,7 +1,7 @@
 package Generator;
 
-import Tasks.ITask;
+import Tasks.TasksTable;
 
 public interface IGenerator {
-    ITask getTask();
+    TasksTable getTasks(String tasksSourceName);
 }

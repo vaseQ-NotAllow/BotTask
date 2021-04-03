@@ -1,17 +1,16 @@
 package Messager;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-public class ConsoleMessager implements IMassageProcess, IPublisher {
-    private IMassageProcess subscriber;
+public class ConsoleMessenger implements IMessageProcess, IPublisher {
+    private IMessageProcess subscriber;
     private Scanner scan;
 
-    public ConsoleMessager() {
+    public ConsoleMessenger() {
         scan = new Scanner(System.in);
     }
 
-    public void Run() {
+    private void Run() {
         String query = scan.next();
         subscriber.Process(new Message(query, new ConsoleChatId("consolka")));
     }
@@ -23,7 +22,7 @@ public class ConsoleMessager implements IMassageProcess, IPublisher {
     }
 
     @Override
-    public void subscribe(IMassageProcess processor) {
+    public void subscribe(IMessageProcess processor) {
         subscriber = processor;
     }
 }
