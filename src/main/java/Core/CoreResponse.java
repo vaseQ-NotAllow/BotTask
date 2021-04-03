@@ -1,6 +1,6 @@
 package Core;
 
-import Messager.Message;
+import Messenger.Message;
 
 public class CoreResponse {
     private Message message;

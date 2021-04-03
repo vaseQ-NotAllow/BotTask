@@ -1,6 +1,6 @@
 package Bot;
 
-import Messager.*;
+import Messenger.*;
 
 public class Bot implements IMessageProcess, IPublisher {
     private BotCore bot;

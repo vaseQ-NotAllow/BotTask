@@ -1,8 +1,8 @@
 package Core;
 
 import Creator.ITaskTableCreator;
-import Messager.ChatId;
-import Messager.Message;
+import Messenger.ChatId;
+import Messenger.Message;
 import Tasks.Task;
 import Tasks.TasksTable;
 

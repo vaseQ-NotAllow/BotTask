@@ -1,4 +1,4 @@
-package Messager;
+package Messenger;
 
 import java.util.Scanner;
 

@@ -1,6 +1,4 @@
-package Messager;
-
-import com.google.common.hash.HashCode;
+package Messenger;
 
 public class TgChatId extends ChatId {
     private long Id;

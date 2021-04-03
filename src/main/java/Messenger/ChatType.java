@@ -1,4 +1,4 @@
-package Messager;
+package Messenger;
 
 public enum ChatType {
     Telegram,

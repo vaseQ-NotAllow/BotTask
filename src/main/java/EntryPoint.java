@@ -3,7 +3,7 @@ import Core.TaskProviderCore;
 import Core.TasksCreatorCore;
 import Generator.IGenerator;
 import Sql.SQLTaskGenerator;
-import Messager.TgBot;
+import Messenger.TgBot;
 import Sql.SqlConnectionProperties;
 import Sql.SqlTableTaskCreator;
 import org.telegram.telegrambots.ApiContextInitializer;

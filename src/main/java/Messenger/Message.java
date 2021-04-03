@@ -1,4 +1,4 @@
-package Messager;
+package Messenger;
 
 public class Message {
     private String text;

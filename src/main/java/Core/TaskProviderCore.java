@@ -1,8 +1,8 @@
 package Core;
 
 import Generator.IGenerator;
-import Messager.ChatId;
-import Messager.Message;
+import Messenger.ChatId;
+import Messenger.Message;
 import Tasks.ITask;
 import Tasks.TasksTable;
 

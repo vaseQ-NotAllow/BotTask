@@ -1,7 +1,7 @@
 package Bot;
 
-import Messager.ChatId;
-import Messager.Message;
+import Messenger.ChatId;
+import Messenger.Message;
 import Core.*;
 
 import java.util.HashMap;

@@ -1,6 +1,6 @@
 package Core;
 
-import Messager.Message;
+import Messenger.Message;
 
 public interface ICore {
     CoreResponse execute(Message message);

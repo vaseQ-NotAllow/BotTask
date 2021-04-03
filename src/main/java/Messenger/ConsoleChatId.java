@@ -1,4 +1,4 @@
-package Messager;
+package Messenger;
 
 public class ConsoleChatId extends ChatId {
     private String Id;
